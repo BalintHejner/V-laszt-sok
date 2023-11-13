@@ -1,7 +1,7 @@
 ﻿import fs from "fs"; //  https://nodejs.org/docs/latest-v14.x/api/fs.html
 import http from "http"; //  https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; //  https://nodejs.org/docs/latest-v14.x/api/url.html
-import Választások from "./Valasztasok";
+import Megoldás from "./Megoldás";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -26,7 +26,9 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
 
     // Kezd a kódolást innen -->
 
-    const v = new Választások("kepviselok.txt");
+    const m: Megoldás = new Megoldás("szavazatok.txt");
+
+    res.write(`2. feladat: Szavazatok száma: ${m.szavazatokSzama}`);
 
     // <---- Fejezd be a kódolást
 
