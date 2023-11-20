@@ -1,31 +1,44 @@
-export default class Képviselők {
-    kerület: number;
-    szavazatok: number;
+export default class VálasztásiEredmény {
+    #kerület: number;
+    #szavazatok: number;
     #vnév: string;
     #knév: string;
-    #pártjel: string;
+    #pártJel: string;
 
-    get vnev(): string {
-        return this.#vnév;
-    }
-    get knev(): string {
-        return this.#knév;
+    public get nev(): string {
+        return `${this.#vnév} ${this.#knév}`;
     }
 
-    get partjel(): string {
-        return this.#pártjel;
+    public get szavazatok(): number {
+        return this.#szavazatok;
     }
 
-    get nev(): string {
-        return this.#vnév + "" + this.#vnév;
+    public get kerület(): number {
+        return this.#kerület;
     }
 
-    get partneve(): string {
-        return this.#vnév;
+    public get pártJel2(): string {
+        return this.#pártJel == "-" ? "Független" : this.#pártJel;
     }
 
-    get partjel2(): string {
-        const fuggetlen: string = "Független";
-        if (this.#pártjel == "-") return fuggetlen;
+    public get párt(): string {
+        const nevMap: Map<string, string> = new Map<string, string>([
+            ["GYEP", "Gyümölcsevők Pártja"],
+            ["HEP", "Húsevők Pártja"],
+            ["TISZ", "Tejivók Szövetsége"],
+            ["ZEP", "Zöldségevők Párja"],
+            ["-", "Független jelöltek"],
+        ]);
+        if (nevMap.has(this.#pártJel)) return nevMap.get(this.#pártJel) as string;
+        return "Hiba!";
+    }
+
+    constructor(sor: string) {
+        const m: string[] = sor.split(" ");
+        this.#kerület = parseInt(m[0]);
+        this.#szavazatok = parseInt(m[1]);
+        this.#vnév = m[2];
+        this.#knév = m[3];
+        this.#pártJel = m[4];
     }
 }

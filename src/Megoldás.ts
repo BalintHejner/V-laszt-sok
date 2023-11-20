@@ -16,7 +16,7 @@ export default class Megoldás {
             .split("\n")
             .forEach(sor => {
                 const aktSor: string = sor.trim();
-                if (aktSor.length > 0) this.#kepviselok.push(new Képviselők());
+                if (aktSor.length > 0) this.#kepviselok.push(new Képviselők(sor));
             });
     }
 }
