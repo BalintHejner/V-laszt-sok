@@ -5,23 +5,23 @@ export default class VálasztásiEredmény {
     #knév: string;
     #pártJel: string;
 
-    public get nev(): string {
+    get nev(): string {
         return `${this.#vnév} ${this.#knév}`;
     }
 
-    public get szavazatok(): number {
+    get szavazatok(): number {
         return this.#szavazatok;
     }
 
-    public get kerület(): number {
+    get kerület(): number {
         return this.#kerület;
     }
 
-    public get pártJel2(): string {
+    get pártJel2(): string {
         return this.#pártJel == "-" ? "Független" : this.#pártJel;
     }
 
-    public get párt(): string {
+    get párt(): string {
         const nevMap: Map<string, string> = new Map<string, string>([
             ["GYEP", "Gyümölcsevők Pártja"],
             ["HEP", "Húsevők Pártja"],
@@ -29,8 +29,7 @@ export default class VálasztásiEredmény {
             ["ZEP", "Zöldségevők Párja"],
             ["-", "Független jelöltek"],
         ]);
-        if (nevMap.has(this.#pártJel)) return nevMap.get(this.#pártJel) as string;
-        return "Hiba!";
+        return nevMap.get(this.#pártJel) as string;
     }
 
     constructor(sor: string) {
