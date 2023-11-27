@@ -31,14 +31,20 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`2. feladat: \nA helyhatósági helyválasztáson ${sz.kepviselokSzama} képviselőjelölt indult.\n`);
 
     let nev: string = params.get("nev") as string;
-    if (!nev) nev = "Fasírt Ferenc";
+    if (!nev) nev = "Fasirt Ferenc";
 
     res.write("\n3. feladat:\n");
     res.write(`<label>Adja meg a képviselő nevét! <input type='text' name='nev' value='${nev}' style='max-width:100px;' onChange='this.form.submit();'></label>\n`);
-    res.write(`${sz.szavazatokSzama(nev)}\n`);
+    res.write(sz.szavazatokSzama(nev) + "\n");
 
     res.write("\n4. feladat:\n");
     res.write(`${sz.reszveteliStatisztika}\n`);
+
+    res.write("\n5. feladat:\n");
+    res.write(sz.partStat + "\n");
+
+    res.write("\n6. feladat:\n");
+    res.write(sz.hatodikKiiras + "\n");
 
     // <---- Fejezd be a kódolást
 
