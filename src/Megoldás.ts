@@ -1,5 +1,6 @@
+// import VálasztásiEredmény from "./Képviselők";
 import Képviselők from "./Képviselők";
-import fs from "fs";
+import fs, { WriteStream } from "fs";
 
 export default class Megoldás {
     #kepviselok: Képviselők[] = [];
@@ -36,7 +37,7 @@ export default class Megoldás {
         let kiir: string = "";
         for (const e of this.#kepviselok) {
             if (e.szavazatok == this.#maxszavazat) {
-                kiir += `${e.nev} ${e.pártJel2}`;
+                kiir += `${e.nev} ${e.pártJel2} \n`;
             }
         }
         return kiir;
@@ -64,6 +65,33 @@ export default class Megoldás {
         return vissza;
     }
 
+    get kiiras(): WriteStream {
+        const iro = fs.createWriteStream("kepviselok.txt");
+        for (let i = 1; i <= 8; i++) {
+            let elso = true;
+            let max = 0;
+            let maxh = 0;
+            for (let j = 0; j < this.#kepviselok.length; j++) {
+                if (this.#kepviselok[j].kerület === i) {
+                    if (elso) {
+                        maxh = j;
+                        max = this.#kepviselok[j].szavazatok;
+                        elso = false;
+                    } else {
+                        if (this.#kepviselok[j].szavazatok > max) {
+                            maxh = j;
+                            max = this.#kepviselok[j].szavazatok;
+                        }
+                    }
+                }
+            }
+            iro.write(i.toString() + ".kerület:" + " " + this.#kepviselok[maxh].nev + " ");
+            iro.write(this.#kepviselok[maxh].pártJel2 + "\n");
+        }
+        iro.close();
+        return iro;
+    }
+
     constructor(forrás: string) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         // const temp = fs.readFileSync(forrás).toString();
@@ -75,6 +103,22 @@ export default class Megoldás {
                 if (aktSor.length > 0) this.#kepviselok.push(new Képviselők(aktSor));
             });
     }
+
+    // #nyertesKépviselő(kerület: number): VálasztásiEredmény | null {
+    //     let nyertes: VálasztásiEredmény | null = null;
+    //     for (const e of this.#kepviselok) {
+    //         if (e.kerület == kerület) {
+    //             if (e.kerület == null) {
+    //                 nyertes = e;
+    //             } else {
+    //                 if (e.szavazatok > nyertes.szavazatok) {
+    //                     nyertes = e;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return nyertes;
+    // }
 
     szavazatokSzama(kepviseloNev: string): string {
         // this.#kepviselok.forEach(item => {

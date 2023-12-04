@@ -27,7 +27,7 @@ export default class VálasztásiEredmény {
             ["HEP", "Húsevők Pártja"],
             ["TISZ", "Tejivók Szövetsége"],
             ["ZEP", "Zöldségevők Párja"],
-            ["-", "Független jelöltek"],
+            ["Független", "Független jelöltek"],
         ]);
         return nevMap.get(this.#pártJel) as string;
     }

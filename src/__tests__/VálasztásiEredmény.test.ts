@@ -1,0 +1,1 @@
+import VálasztásiEredmény from "../Képviselők";

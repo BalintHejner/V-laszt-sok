@@ -46,6 +46,10 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write("\n6. feladat:\n");
     res.write(sz.hatodikKiiras + "\n");
 
+    sz.kiiras;
+    res.write("\n7. feladat:\n");
+    res.write("Elkészület a kepviselok.txt állomány" + "\n");
+
     // <---- Fejezd be a kódolást
 
     res.write("</pre></form></body></html>");
